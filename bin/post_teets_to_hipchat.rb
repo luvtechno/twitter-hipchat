@@ -4,6 +4,8 @@
 require 'hipchat'
 require 'faraday'
 require 'faraday_middleware'
+require 'redis'
+
 
 class TwitterSearch
   ROOT_URL = 'http://search.twitter.com/'
@@ -34,17 +36,22 @@ client = HipChat::Client.new(api_token)
 room_id = ENV['HIPCHAT_ROOM_ID']
 hipchat_username = 'Twitter'
 
-last_id = nil
-query = "Wantedly"
-params = { rpp: 3, result_type: 'recent', lang: 'ja', q: query, since_id: last_id }
+redis = Redis.new( url: ENV['REDISCLOUD_URL'] )
+last_id = redis.get('last_id')
+
+query = ENV['TWITTER_SEARCH_QUERY']
+lang = ENV['TWITTER_SEARCH_LANG']
+params = { rpp: 100, result_type: 'recent', lang: lang, q: query, since_id: last_id }
+puts params
 response = TwitterSearch.new.request(params)
 puts response
 
 response['results'].each do |result|
   tweet_url = "https://twitter.com/#{result['from_user']}/status/#{result['id']}"
   puts tweet_url
-  # client[room_id].send(hipchat_username, tweet_url, message_format: 'text', color: 'gray')
+  client[room_id].send(hipchat_username, tweet_url, message_format: 'text', color: 'gray')
 end
 
 max_id = response['max_id']
 puts max_id
+puts redis.set('last_id', max_id.to_s)
