@@ -46,7 +46,7 @@ puts params
 response = TwitterSearch.new.request(params)
 puts response
 
-response['results'].each do |result|
+response['results'].reverse.each do |result|
   tweet_url = "https://twitter.com/#{result['from_user']}/status/#{result['id']}"
   puts tweet_url
   client[room_id].send(hipchat_username, tweet_url, message_format: 'text', color: 'gray', notify: 1)
