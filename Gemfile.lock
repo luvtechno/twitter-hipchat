@@ -15,6 +15,7 @@ GEM
     multi_json (1.7.1)
     multi_xml (0.5.3)
     multipart-post (1.2.0)
+    oj (2.0.10)
     pry (0.9.12)
       coderay (~> 1.0.5)
       method_source (~> 0.8)
@@ -34,6 +35,7 @@ DEPENDENCIES
   faraday
   faraday_middleware
   hipchat
+  oj
   pry
   redis
   twitter

@@ -1,6 +1,7 @@
 source 'http://rubygems.org'
 ruby '2.0.0'
 
+gem 'oj'
 gem 'faraday'
 gem 'faraday_middleware'
 gem 'hipchat'
