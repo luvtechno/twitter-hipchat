@@ -20,7 +20,12 @@ GEM
       method_source (~> 0.8)
       slop (~> 3.4)
     redis (3.0.3)
+    simple_oauth (0.2.0)
     slop (3.4.4)
+    twitter (4.6.2)
+      faraday (~> 0.8, < 0.10)
+      multi_json (~> 1.0)
+      simple_oauth (~> 0.2)
 
 PLATFORMS
   ruby
@@ -31,3 +36,4 @@ DEPENDENCIES
   hipchat
   pry
   redis
+  twitter
